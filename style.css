@@ -8,6 +8,7 @@ body {
     background-image: linear-gradient(120deg, #1b6b91, #e2a128);
     color: whitesmoke;
     font-family: "Poppins", sans-serif;
+    display: flex;
     min-height: 100vh;
 }
 
