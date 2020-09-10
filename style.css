@@ -1,0 +1,144 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: linear-gradient(120deg, #1b6b91, #e2a128);
+    color: whitesmoke;
+    font-family: "Poppins", sans-serif;
+    min-height: 100vh;
+}
+
+header,
+form {
+    min-height: 20vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form input, 
+form button {
+    padding: 0.5rem;
+    font-size: 2rem;
+    border: none;
+    background: whitesmoke;
+}
+
+form button {
+    color: #e2a128;
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+form button:hover {
+    background: #e2a128;
+    color: whitesmoke;
+}
+
+.tracker-container {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.tracker-list {
+    min-width: 30%;
+    list-style: none;
+}
+
+.tracker {
+    margin: 0.5rem;
+    background: whitesmoke;
+    color: black;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.5s ease;
+}
+
+.tracker li {
+    flex: 1;
+}
+
+.tracker-item {
+    padding: 0rem, 0.5rem;
+    /* this doesn't work with flex because
+    the calculation is already being done with 
+    flex */
+}
+
+.complete-btn, 
+.delete-btn {
+    background: #aa2d0e;
+    color: whitesmoke;
+    border: none;
+    padding: 1rem;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.complete-btn {
+    background: #0990a1
+}
+
+.fa-trash,
+.fa-check {
+    pointer-events: none;
+    /* this means you cannot click on it anymore
+    were clicking the actually button and the not i tag */
+}
+
+.fall {
+    transform: translateY(8rem) rotateZ(20deg);
+    opacity: 0;
+}
+
+.bought {
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+    /* overflow: hidden; */
+    /* position: bottom; */
+    /* will take out the initial styling of select bar */
+}
+
+.select {
+    margin: 1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+select {
+    color: #c2891f;
+    cursor: pointer;
+    width: 10rem;
+    padding: 1rem;
+}
+
+.select::after {
+    content: "\25BC";
+    position: absolute;
+    background: #c2891f;
+    top: 0;
+    right: 0;
+    padding: 1rem;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.select:hover::after {
+    background: white;
+    color: #c2891f;
+}
+
