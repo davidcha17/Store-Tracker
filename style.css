@@ -8,7 +8,7 @@ body {
     background-image: linear-gradient(120deg, #1b6b91, #e2a128);
     color: whitesmoke;
     font-family: "Poppins", sans-serif;
-    display: flex;
+    display: column;
     min-height: 100vh;
 }
 
@@ -16,6 +16,7 @@ header,
 form {
     min-height: 20vh;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
 }

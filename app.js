@@ -9,12 +9,13 @@ const filterOption = document.querySelector('.filter-tracker')
 trackerButton.addEventListener('click', addTrackerItem)
 trackerList.addEventListener('click', deleteItem)
 filterOption.addEventListener('input', changeFilter)
+document.addEventListener('DOMContentLoaded', getTracker)
  
 // Functions
 
 function addTrackerItem (e) {
     e.preventDefault()
-    console.log("hello, i've been clicked")
+    // console.log("hello, i've been clicked")
     // creating a div to hold the li
     const trackerDiv = document.createElement("div")
     trackerDiv.classList.add('tracker')
@@ -24,10 +25,14 @@ function addTrackerItem (e) {
     
     newItem.innerText = trackerInput.value
     newItem.classList.add("tracker-item")
-    if(trackerInput === null) {
+    
+    if(trackerInput.value === "") {
         alert("Can't add nothing to the list")
     } else {
         trackerDiv.appendChild(newItem)
+        
+        // saving items
+        saveTracker(trackerInput.value)
         
         // complete button
         const completedButton = document.createElement('button')
@@ -57,7 +62,13 @@ function deleteItem(e) {
         const deleteItem = item.parentElement
         // adding delete animation 
         deleteItem.classList.add("fall")
+
+        // removing it from localStorage
+        // console.log(deleteItem)
+        removeTrackerItem(deleteItem)
+
         deleteItem.addEventListener('transitionend', function() {
+            // console.log(deleteItem)
             deleteItem.remove()
         })
         
@@ -108,6 +119,81 @@ function changeFilter(e) {
 // When you separate the ul on index.html you create an empty space which is why we were able to get the case
 // statements working
 
-function saveTracker() {
+function saveTracker(item) {
+    let items;
+    // console.log(items)
+    // console.log(item)
+    if(localStorage.getItem("items") === null) {
+        items = []
+        // if the items doesn't exist we will create one
+    } else {
+        items = JSON.parse(localStorage.getItem("items"))
+        // parsing the items from the list and rendering them back on the page
+    }
+    items.push(item)
+    console.log(items)
+    // pushing the items into the array 
+    localStorage.setItem("items", JSON.stringify(items))
+    // setting it back into the localStorage and we need to associate it when the user creates an item
+    // put it into the add function
+
+}
+
+function getTracker() {
+    let items;
+    // console.log(items)
+    // console.log(item)
+    if(localStorage.getItem("items") === null) {
+        items = []
+    } else {
+        items = JSON.parse(localStorage.getItem("items"))
+    }
+    items.forEach(function(item) {
+        // getting the items from the localStorage and were going to render them onto the page
+        const trackerDiv = document.createElement("div")
+        trackerDiv.classList.add('tracker')
+
+        // creating an li 
+        const newItem = document.createElement("li")
+        
+        newItem.innerText = item
+        newItem.classList.add("tracker-item")
+        
+            trackerDiv.appendChild(newItem)
+            
+            // complete button
+            const completedButton = document.createElement('button')
+            completedButton.innerHTML = `<i class="fas fa-check"></i>`
+            completedButton.classList.add('complete-btn')
+            trackerDiv.appendChild(completedButton)
+            
+            // delete button
+            const deleteButton = document.createElement('button') 
+            deleteButton.innerHTML = `<i class="fas fa-trash"></i>`
+            deleteButton.classList.add('delete-btn')
+            trackerDiv.appendChild(deleteButton)
+            
+            // append it to the list 
+            trackerList.appendChild(trackerDiv)
+    })
+}
+
+function removeTrackerItem(item) {
+    let items;
+    if(localStorage.getItem("items") === null) {
+        items = []
+    } else {
+        items = JSON.parse(localStorage.getItem("items"))
+    }
+    // console.log(item.children[0].innerText)
+    // what comes back is the class of that item div and were looking for the name of the item
     
+    // const itemIndex = item.children[0].innerText
+    // items.splice(items.indexOf(itemIndex), 1)
+    const itemIndex = Array.from(trackerList.childNodes).indexOf(item)
+    // console.log(itemIndex)
+    items.splice(itemIndex, 1)
+    // this takes out a specific item from the list even if there was another item that has the same name
+    localStorage.setItem("items", JSON.stringify(items))
+    // have to set the new localStorage 
 }
